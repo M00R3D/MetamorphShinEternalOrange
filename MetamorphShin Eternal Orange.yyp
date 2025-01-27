@@ -36,8 +36,10 @@
   "resources":[
     {"id":{"name":"obj_char","path":"objects/obj_char/obj_char.yy",},},
     {"id":{"name":"obj_death","path":"objects/obj_death/obj_death.yy",},},
+    {"id":{"name":"obj_particle","path":"objects/obj_particle/obj_particle.yy",},},
     {"id":{"name":"obj_wall","path":"objects/obj_wall/obj_wall.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
+    {"id":{"name":"spr_orange_particle","path":"sprites/spr_orange_particle/spr_orange_particle.yy",},},
     {"id":{"name":"spr_orangeguy_stand","path":"sprites/spr_orangeguy_stand/spr_orangeguy_stand.yy",},},
     {"id":{"name":"spr_orangeguy_walk","path":"sprites/spr_orangeguy_walk/spr_orangeguy_walk.yy",},},
     {"id":{"name":"spr_wall","path":"sprites/spr_wall/spr_wall.yy",},},
