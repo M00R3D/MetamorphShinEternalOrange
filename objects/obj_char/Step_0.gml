@@ -1,70 +1,93 @@
 /// Step Event
 
 // Control de teclas
-var rkey = keyboard_check(ord("D")); // Tecla para moverse a la derecha
-var lkey = keyboard_check(ord("A")); // Tecla para moverse a la izquierda
-var jkey = keyboard_check(ord("W")); // Tecla para saltar
-var _hor = rkey - lkey; // Dirección horizontal (derecha: 1, izquierda: -1)
+var rkey = keyboard_check(ord("D")); // Tecla derecha
+var lkey = keyboard_check(ord("A")); // Tecla izquierda
+var jkey = keyboard_check(ord("W")); // Tecla de salto
+var _hor = rkey - lkey; // Dirección horizontal (1: derecha, -1: izquierda)
 
-// Movimiento horizontal
-if (_hor == 0) {
-    hspd = 0;
-    sprite_index = spr_orangeguy_stand; // Sprite de personaje quieto
-} else {
-    hspd = spd * _hor; // Velocidad horizontal ajustada por dirección
-    sprite_index = spr_orangeguy_walk; // Sprite de personaje caminando
-    
-    // Invertir sprite según dirección
-    if (rkey) image_xscale = 1;
-    if (lkey) image_xscale = -1;
-
-    // Control del sonido de pasos
-    if (wait_stepSnd > 0) {
-        wait_stepSnd--;
+// Estado "life": Movimiento y colisiones
+if (status == "life") {
+    // Movimiento horizontal
+    if (_hor == 0) {
+        hspd = 0;
+        sprite_index = spr_orangeguy_stand; // Sprite quieto
     } else {
-        wait_stepSnd = choose(14, 16, 17, 20); // Tiempo aleatorio para el siguiente paso
-        // audio_play_sound(snd_step, 10, false);
+        hspd = spd * _hor;
+        sprite_index = spr_orangeguy_walk; // Sprite caminando
+        image_xscale = rkey ? 1 : -1; // Invertir sprite según dirección
+
+        // Control de sonido de pasos
+        if (wait_stepSnd > 0) {
+            wait_stepSnd--;
+        } else {
+            wait_stepSnd = choose(14, 16, 17, 20); // Tiempo aleatorio
+            // audio_play_sound(snd_step, 10, false);
+        }
+    }
+
+    // Gravedad y salto
+    if (place_meeting(x, y + 1, obj_wall)) {
+        vspd = 0; // Detener velocidad vertical
+        if (jkey) {
+            vspd = -jspd; // Saltar
+            // audio_play_sound(snd_jump, 10, false);
+        }
+    } else {
+        vspd = min(vspd + grav, 10); // Aplicar gravedad
+    }
+
+    // Resolver colisiones horizontales
+    if (place_meeting(x + hspd, y, obj_wall)) {
+        while (!place_meeting(x + sign(hspd), y, obj_wall)) {
+            x += sign(hspd);
+        }
+        hspd = 0;
+    } else {
+        x += hspd + global.char_hspd_plus;
+    }
+
+    // Resolver colisiones verticales
+    if (place_meeting(x, y + vspd, obj_wall)) {
+        while (!place_meeting(x, y + sign(vspd), obj_wall)) {
+            y += sign(vspd);
+        }
+        vspd = 0;
+    } else {
+        y += vspd;
+    }
+
+    // Verificar si el personaje murió
+    if (hp <= 0) {
+        status = "death"; // Cambiar estado a muerte
+        deathtime = 200; // Reiniciar temporizador de muerte
     }
 }
 
-// Gravedad y salto
-if (place_meeting(x, y + 1, obj_wall)) {
-    vspd = 0; // Detener velocidad vertical al estar en el suelo
-    if (jkey) {
-        vspd = -jspd; // Aplicar fuerza de salto
-        // audio_play_sound(snd_jump, 10, false);
+// Estado "death": Animación de partículas y reinicio
+if (status == "death") {
+    if (particletime > 0) {
+        particletime--;
+    } else {
+        particletime = 20; // Reiniciar temporizador de partículas
+        with (instance_create_layer(x, y - 4, "Instances", obj_particle)) {
+            vspd = choose(-10, -12, -15); // Configurar movimiento de partículas
+        }
     }
-} else {
-    vspd = min(vspd + grav, 10); // Aplicar gravedad y limitar velocidad máxima
-}
 
-// Resolver colisiones horizontales
-if (place_meeting(x + hspd, y, obj_wall)) {
-    while (!place_meeting(x + sign(hspd), y, obj_wall)) {
-        x += sign(hspd); // Ajustar posición al borde del objeto
+    // Cambiar sprite a animación de dolor
+    if (deathtime == 40) {
+        sprite_index = spr_orangeguy_pain;
     }
-    hspd = 0; // Detener movimiento horizontal al chocar
-} else {
-    x += hspd + global.char_hspd_plus; // Mover horizontalmente
-}
 
-// Resolver colisiones verticales
-if (place_meeting(x, y + vspd, obj_wall)) {
-    while (!place_meeting(x, y + sign(vspd), obj_wall)) {
-        y += sign(vspd); // Ajustar posición al borde del objeto
+    // Reiniciar al personaje cuando termine la animación de muerte
+    if (deathtime <= 0) {
+        x = 416; // Posición inicial (ajústalo según el juego)
+        y = 496;
+        hp = 10; // Restaurar puntos de vida
+        status = "life"; // Cambiar estado a vivo
+        sprite_index = spr_orangeguy_stand; // Cambiar sprite
+    } else {
+        deathtime--; // Reducir temporizador de muerte
     }
-    vspd = 0; // Detener movimiento vertical al chocar
-} else {
-    y += vspd; // Mover verticalmente
-}
-
-// Temporizador para animaciones
-if (timedraw > 0) {
-    timedraw--;
-}
-if (hp==0)
-{
-	x=416;
-	y=496;
-	hp=10;
 }

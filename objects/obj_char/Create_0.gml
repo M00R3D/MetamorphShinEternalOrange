@@ -14,4 +14,9 @@ image_speed = 0.2; // Velocidad de animación del sprite
 // Estado inicial del personaje
 sprite_index = spr_orangeguy_stand;
 
-hp=10;
+status = "life"; // Estado inicial del personaje (vivo)
+hp = 10; // Puntos de vida
+
+// Variables relacionadas con muerte y partículas
+deathtime = 200; // Tiempo total de animación de muerte
+particletime = 20; // Intervalo entre partículas al morir
