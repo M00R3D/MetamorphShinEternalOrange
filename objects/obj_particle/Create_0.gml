@@ -14,3 +14,6 @@ _hor = choose(-1,1,-2,2,-3,3)
 
 
 timelife=choose(130,140,150,200,210);
+
+fallen=false;
+audio_play_sound(snd_blop, 11, false);

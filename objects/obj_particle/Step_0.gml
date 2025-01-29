@@ -3,43 +3,48 @@ if (_hor == 0) {
     hspd = 0;
 } else {
     hspd = spd * _hor; // Velocidad horizontal ajustada por dirección
-    if(_hor>0){_hor-=0.1;}
-    if(_hor<0){_hor+=0.1;}
+    if (_hor > 0) { _hor -= 0.1; }
+    if (_hor < 0) { _hor += 0.1; }
 
     // Control del sonido de pasos
     if (wait_stepSnd > 0) {
         wait_stepSnd--;
     } else {
-        wait_stepSnd = choose(14, 16, 17, 20); // Tiempo aleatorio para el siguiente paso
-        // audio_play_sound(snd_step, 10, false);
+        wait_stepSnd = choose(14, 16, 17, 20);
     }
 }
 
-// Gravedad y salto
+// Gravedad y caída
+var wasFalling = (vspd > 0.001); // La partícula estaba cayendo
+
 if (place_meeting(x, y + 1, obj_wall)) {
-    vspd = 0; // Detener velocidad vertical al estar en el suelo
+    if (fallen==false) { // Solo suena si estaba cayendo
+        audio_play_sound(snd_fall, 11, false);
+        fallen=true;
+    }
+    vspd = 0;
 } else {
-    vspd = min(vspd + grav, 10); // Aplicar gravedad y limitar velocidad máxima
+    vspd = min(vspd + grav, 10);
 }
 
 // Resolver colisiones horizontales
 if (place_meeting(x + hspd, y, obj_wall)) {
     while (!place_meeting(x + sign(hspd), y, obj_wall)) {
-        x += sign(hspd); // Ajustar posición al borde del objeto
+        x += sign(hspd);
     }
-    hspd = 0; // Detener movimiento horizontal al chocar
+    hspd = 0;
 } else {
-    x += hspd; // Mover horizontalmente
+    x += hspd;
 }
 
 // Resolver colisiones verticales
 if (place_meeting(x, y + vspd, obj_wall)) {
     while (!place_meeting(x, y + sign(vspd), obj_wall)) {
-        y += sign(vspd); // Ajustar posición al borde del objeto
+        y += sign(vspd);
     }
-    vspd = 0; // Detener movimiento vertical al chocar
+    vspd = 0;
 } else {
-    y += vspd; // Mover verticalmente
+    y += vspd;
 }
 
 // Temporizador para animaciones
@@ -47,6 +52,13 @@ if (timedraw > 0) {
     timedraw--;
 }
 
-if(timelife>0){timelife--;}
-if(timelife==0){instance_destroy(self);}
-image_alpha=0.003*(timelife+100);
+// Desaparece cuando acaba su tiempo de vida
+if (timelife > 0) { 
+    timelife--; 
+} 
+if (timelife == 0) { 
+    instance_destroy(self); 
+}
+
+// Ajustar transparencia gradualmente
+image_alpha = 0.003 * (timelife + 100);

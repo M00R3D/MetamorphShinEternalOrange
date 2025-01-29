@@ -17,21 +17,35 @@ if (status == "life") {
         sprite_index = spr_orangeguy_walk; // Sprite caminando
         image_xscale = rkey ? 1 : -1; // Invertir sprite según dirección
 
-        // Control de sonido de pasos
+        // Sonido de pasos con cooldown
         if (wait_stepSnd > 0) {
             wait_stepSnd--;
         } else {
             wait_stepSnd = choose(14, 16, 17, 20); // Tiempo aleatorio
-            // audio_play_sound(snd_step, 10, false);
+            if (vspd == 0 && !audio_is_playing(snd_step)) { 
+                audio_play_sound(snd_step, 5, false); 
+            }
         }
+    }
+
+    // Registrar si estaba cayendo
+    if (vspd > 1) {
+        fellFromAir = true;
     }
 
     // Gravedad y salto
     if (place_meeting(x, y + 1, obj_wall)) {
+        if (fellFromAir) { 
+            audio_play_sound(snd_fall, 8, false); // Sonido de caída
+            fellFromAir = false; // Resetear la bandera
+        }
+
         vspd = 0; // Detener velocidad vertical
-        if (jkey) {
+
+        // Salto
+        if (jkey && !audio_is_playing(snd_jump)) { 
             vspd = -jspd; // Saltar
-            // audio_play_sound(snd_jump, 10, false);
+            audio_play_sound(snd_jump, 10, false); // Prioridad alta
         }
     } else {
         vspd = min(vspd + grav, 10); // Aplicar gravedad
