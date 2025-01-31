@@ -45,6 +45,7 @@
     {"id":{"name":"snd_fall","path":"sounds/snd_fall/snd_fall.yy",},},
     {"id":{"name":"snd_jump","path":"sounds/snd_jump/snd_jump.yy",},},
     {"id":{"name":"snd_step","path":"sounds/snd_step/snd_step.yy",},},
+    {"id":{"name":"spr_blackmage_stand","path":"sprites/spr_blackmage_stand/spr_blackmage_stand.yy",},},
     {"id":{"name":"spr_door","path":"sprites/spr_door/spr_door.yy",},},
     {"id":{"name":"spr_orange_particle","path":"sprites/spr_orange_particle/spr_orange_particle.yy",},},
     {"id":{"name":"spr_orangeguy_pain","path":"sprites/spr_orangeguy_pain/spr_orangeguy_pain.yy",},},

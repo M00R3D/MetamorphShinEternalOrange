@@ -10,7 +10,7 @@ wait_stepSnd = 2; // Tiempo entre sonidos de pasos
 timedraw = 100; // Temporizador de animación
 global.char_hspd_plus = 0; // Ajuste adicional para velocidad horizontal
 image_speed = 0.2; // Velocidad de animación del sprite
-
+fellFromAir=false;
 // Estado inicial del personaje
 sprite_index = spr_orangeguy_stand;
 

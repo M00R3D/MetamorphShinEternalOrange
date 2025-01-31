@@ -1,2 +1,4 @@
-/// @description Inserte aquí la descripción
-// Puede escribir su código en este editor
+lvl=Room2;
+// function travel(level) {
+//     room_goto(level);
+// }
