@@ -20,3 +20,8 @@ hp = 10; // Puntos de vida
 // Variables relacionadas con muerte y partículas
 deathtime = 200; // Tiempo total de animación de muerte
 particletime = 20; // Intervalo entre partículas al morir
+
+fellFromAir = false;
+
+
+
