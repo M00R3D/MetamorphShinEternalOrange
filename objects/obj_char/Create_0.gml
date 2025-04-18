@@ -1,5 +1,5 @@
 /// Create Event
-
+fellFromAir=true;
 // Variables para movimiento y colisiones
 grav = 0.7; // Gravedad
 spd = 3; // Velocidad horizontal base
@@ -20,3 +20,10 @@ hp = 10; // Puntos de vida
 // Variables relacionadas con muerte y partículas
 deathtime = 200; // Tiempo total de animación de muerte
 particletime = 20; // Intervalo entre partículas al morir
+
+// obj_jugador > Create Event
+// Posición por defecto (por si no hay nada en global)
+if (!variable_global_exists("tX")) {
+    global.tX = x;
+    global.tY= y;
+}
