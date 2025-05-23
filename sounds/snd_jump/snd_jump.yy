@@ -9,7 +9,7 @@
   "bitRate":128,
   "compression":3,
   "conversionMode":0,
-  "duration":0.313175,
+  "duration":0.3131746,
   "name":"snd_jump",
   "parent":{
     "name":"Sonidos",
@@ -21,5 +21,5 @@
   "sampleRate":44100,
   "soundFile":"snd_jump.wav",
   "type":0,
-  "volume":0.22,
+  "volume":0.12,
 }

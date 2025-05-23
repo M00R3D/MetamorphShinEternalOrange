@@ -9,7 +9,7 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":0.111111,
+  "duration":0.11111111,
   "name":"snd_step",
   "parent":{
     "name":"Sonidos",
@@ -21,5 +21,5 @@
   "sampleRate":44100,
   "soundFile":"snd_step.wav",
   "type":0,
-  "volume":0.46,
+  "volume":0.27,
 }
