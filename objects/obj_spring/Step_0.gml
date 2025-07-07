@@ -7,7 +7,7 @@ if(place_meeting(x, y + 4, obj_char) and modo=="normal")
 if(modo=="cerrado" and c<10){c++;}
 if(modo=="cerrado" and c==10)
 	{
-		obj_char.vspd-=20;
+		obj_char.vspd-=force;
 		obj_char.y-=3;
 		modo="abierto";
 		audio_play_sound(snd_spring, 5, false); 

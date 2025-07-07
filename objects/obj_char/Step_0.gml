@@ -4,6 +4,7 @@
 var rkey = keyboard_check(ord("D")); // Tecla derecha
 var lkey = keyboard_check(ord("A")); // Tecla izquierda
 var jkey = keyboard_check(ord("W")); // Tecla de salto
+var skey = keyboard_check(ord("S")); // Tecla de agacharse,bajar
 var _hor = rkey - lkey; // Dirección horizontal (1: derecha, -1: izquierda)
 
 // Estado "life": Movimiento y colisiones
@@ -48,7 +49,8 @@ if (status == "life") {
             audio_play_sound(snd_jump, 10, false); // Prioridad alta
         }
     } else {
-        vspd = min(vspd + grav, 10); // Aplicar gravedad
+        vspd = min(vspd + grav, 10) * (!place_meeting(x,y,obj_ladder)); // Aplicar gravedad
+		if(jkey){y--;} else if(skey){y++;}
     }
 
     // Resolver colisiones horizontales
