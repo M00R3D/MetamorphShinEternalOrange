@@ -10,3 +10,7 @@ max_vspd = 10;
 globe=1;
 globeflg=true;
 floti=0;
+
+
+spd_part=4;
+spd_partMax=4;

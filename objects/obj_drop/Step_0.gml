@@ -1,3 +1,16 @@
+if(index<10 && index>=0)
+{
+	if(spd_part>0)
+	{
+		spd_part--;
+	}
+	else
+	{
+		spd_part=spd_partMax;
+		instance_create_layer(x,y- choose(1,2,3,4),"Frontside",obj_particle_drop_normal);
+	}
+}
+
 // Aplicar gravedad
 vspd = min(vspd + grav, max_vspd);
 
