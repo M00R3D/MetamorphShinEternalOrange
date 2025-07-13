@@ -1,3 +1,4 @@
+//Paso
 if(index<10 && index>=0)
 {
 	if(spd_part>0)
@@ -45,13 +46,22 @@ with (obj_drop) {
 }
 
 // Destruir al colisionar con el jugador
-if (place_meeting(x, y, obj_char)) {
+var char = instance_place(x, y, obj_char);
+if (char != noone) {
+    // Buscar el inventario (puedes tenerlo como global.inv o asignado al personaje)
+    var inv = instance_find(obj_inv, 0);
+    if (inv != noone) {
+        inv.add_item(index);
+    }
+
+    // Crear partículas
     for (var i = 0; i < 5; i++) {
         with (instance_create_layer(x, y, "Instances", obj_particle)) {
             hspd = random_range(-2, 2);
             vspd = random_range(-4, -1);
         }
     }
+
     instance_destroy();
 }
 

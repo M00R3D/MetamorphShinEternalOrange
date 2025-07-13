@@ -1,3 +1,4 @@
+//Dibujar
 if (index != "") {
     var spr = noone;
 

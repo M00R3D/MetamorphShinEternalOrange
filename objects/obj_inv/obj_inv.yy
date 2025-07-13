@@ -1,13 +1,13 @@
 {
   "$GMObject":"",
-  "%Name":"obj_char",
+  "%Name":"obj_inv",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":64,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_char",
+  "name":"obj_inv",
   "overriddenProperties":[],
   "parent":{
     "name":"Objetos",
@@ -31,10 +31,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_orangeguy_stand",
-    "path":"sprites/spr_orangeguy_stand/spr_orangeguy_stand.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }
